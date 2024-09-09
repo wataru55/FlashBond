@@ -11,6 +11,14 @@
 		63D9D04B2C8E8053001960D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D04A2C8E8053001960D3 /* ContentView.swift */; };
 		63D9D04D2C8E8055001960D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D9D04C2C8E8055001960D3 /* Assets.xcassets */; };
 		63D9D0502C8E8055001960D3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D9D04F2C8E8055001960D3 /* Preview Assets.xcassets */; };
+		63D9D0592C8E8517001960D3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D0582C8E8517001960D3 /* LoginView.swift */; };
+		63D9D05C2C8E8636001960D3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D05B2C8E8636001960D3 /* LoginViewModel.swift */; };
+		63D9D05F2C8E8767001960D3 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D05E2C8E8767001960D3 /* TextFieldModifier.swift */; };
+		63D9D0612C8E8B17001960D3 /* AddEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D0602C8E8B17001960D3 /* AddEmailView.swift */; };
+		63D9D0632C8E8B2D001960D3 /* CreateUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D0622C8E8B2D001960D3 /* CreateUserNameView.swift */; };
+		63D9D0652C8E8B4A001960D3 /* CreatePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D0642C8E8B4A001960D3 /* CreatePasswordView.swift */; };
+		63D9D0672C8E8B5E001960D3 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D0662C8E8B5E001960D3 /* CompleteSignUpView.swift */; };
+		63D9D0692C8E8C58001960D3 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D0682C8E8C58001960D3 /* RegistrationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +27,14 @@
 		63D9D04A2C8E8053001960D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		63D9D04C2C8E8055001960D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63D9D04F2C8E8055001960D3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		63D9D0582C8E8517001960D3 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		63D9D05B2C8E8636001960D3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		63D9D05E2C8E8767001960D3 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
+		63D9D0602C8E8B17001960D3 /* AddEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEmailView.swift; sourceTree = "<group>"; };
+		63D9D0622C8E8B2D001960D3 /* CreateUserNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserNameView.swift; sourceTree = "<group>"; };
+		63D9D0642C8E8B4A001960D3 /* CreatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePasswordView.swift; sourceTree = "<group>"; };
+		63D9D0662C8E8B5E001960D3 /* CompleteSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpView.swift; sourceTree = "<group>"; };
+		63D9D0682C8E8C58001960D3 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +69,8 @@
 			children = (
 				63D9D0482C8E8053001960D3 /* FlashBondApp.swift */,
 				63D9D04A2C8E8053001960D3 /* ContentView.swift */,
+				63D9D0562C8E84C7001960D3 /* Authentication */,
+				63D9D05D2C8E8709001960D3 /* Custom */,
 				63D9D04C2C8E8055001960D3 /* Assets.xcassets */,
 				63D9D04E2C8E8055001960D3 /* Preview Content */,
 			);
@@ -65,6 +83,44 @@
 				63D9D04F2C8E8055001960D3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		63D9D0562C8E84C7001960D3 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				63D9D05A2C8E8624001960D3 /* ViewModel */,
+				63D9D0572C8E84DD001960D3 /* View */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		63D9D0572C8E84DD001960D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				63D9D0582C8E8517001960D3 /* LoginView.swift */,
+				63D9D0602C8E8B17001960D3 /* AddEmailView.swift */,
+				63D9D0622C8E8B2D001960D3 /* CreateUserNameView.swift */,
+				63D9D0642C8E8B4A001960D3 /* CreatePasswordView.swift */,
+				63D9D0662C8E8B5E001960D3 /* CompleteSignUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		63D9D05A2C8E8624001960D3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				63D9D05B2C8E8636001960D3 /* LoginViewModel.swift */,
+				63D9D0682C8E8C58001960D3 /* RegistrationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		63D9D05D2C8E8709001960D3 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				63D9D05E2C8E8767001960D3 /* TextFieldModifier.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +193,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63D9D0632C8E8B2D001960D3 /* CreateUserNameView.swift in Sources */,
+				63D9D0672C8E8B5E001960D3 /* CompleteSignUpView.swift in Sources */,
+				63D9D05C2C8E8636001960D3 /* LoginViewModel.swift in Sources */,
+				63D9D05F2C8E8767001960D3 /* TextFieldModifier.swift in Sources */,
+				63D9D0592C8E8517001960D3 /* LoginView.swift in Sources */,
+				63D9D0692C8E8C58001960D3 /* RegistrationViewModel.swift in Sources */,
+				63D9D0612C8E8B17001960D3 /* AddEmailView.swift in Sources */,
+				63D9D0652C8E8B4A001960D3 /* CreatePasswordView.swift in Sources */,
 				63D9D04B2C8E8053001960D3 /* ContentView.swift in Sources */,
 				63D9D0492C8E8053001960D3 /* FlashBondApp.swift in Sources */,
 			);
