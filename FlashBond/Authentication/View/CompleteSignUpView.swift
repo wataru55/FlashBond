@@ -34,7 +34,9 @@ struct CompleteSignUpView: View {
                 .padding(.bottom)
 
             Button(action: {
-                print(viewModel.$email, viewModel.$password, viewModel.$username)
+                Task {
+                    try await AuthService.shared.createUser(email: viewModel.email, password: viewModel.password, username: viewModel.username)
+                }
             }, label: {
                 Text("登録を完了")
                     .font(.subheadline)
