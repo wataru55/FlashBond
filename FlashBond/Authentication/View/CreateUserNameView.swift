@@ -31,7 +31,7 @@ struct CreateUserNameView: View {
                 .padding(.bottom)
 
             TextField("ユーザーネーム", text: $viewModel.username)
-                .textInputAutocapitalization(.none)
+                .textInputAutocapitalization(.never)
                 .modifier(TextFieldModifier())
 
             NavigationLink {
