@@ -28,7 +28,7 @@ struct AddEmailView: View {
                 .padding(.bottom)
 
             TextField("メールアドレス", text: $viewModel.email)
-                .textInputAutocapitalization(.none)
+                .textInputAutocapitalization(.never)
                 .modifier(TextFieldModifier())
 
             NavigationLink {
