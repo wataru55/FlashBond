@@ -32,6 +32,7 @@ class AuthService {
         }
     }
 
+    @MainActor
     // Firestore Databaseにユーザ情報を追加する関数
     private func uploadUserData(uid: String, username: String, email: String) async {
         let user = User(id: uid, username: username, email: email)
@@ -44,6 +45,31 @@ class AuthService {
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
         } catch {
             print("DEBUG: Failed to upload user data with error \(error.localizedDescription)")
+        }
+    }
+
+    // ログインする関数
+    @MainActor
+    func signin(email: String, password: String) async throws {
+        do {
+            // Firebase Authenticationでログイン
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            // ログインしたユーザー情報をuserSessionに格納
+            self.userSession = result.user
+        } catch {
+            print("DEBUG: Failed to login with error \(error.localizedDescription)")
+            throw error  // エラーを再スロー
+        }
+    }
+
+    // ログアウトする関数
+    func signout() {
+        do {
+            try Auth.auth().signOut()
+            self.userSession = nil
+            self.currentUser = nil
+        } catch {
+            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
         }
     }
 }
