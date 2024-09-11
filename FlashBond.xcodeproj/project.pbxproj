@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6320368F2C91895600220FED /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6320368E2C91895600220FED /* HomeView.swift */; };
+		632036912C9189C800220FED /* RoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632036902C9189C800220FED /* RoomListView.swift */; };
+		632036932C918AE400220FED /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632036922C918AE400220FED /* CurrentUserProfileView.swift */; };
+		632036952C918AFF00220FED /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632036942C918AFF00220FED /* SettingView.swift */; };
 		6356CA622C8FCE0500A496D2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6356CA612C8FCE0500A496D2 /* FirebaseAuth */; };
 		6356CA642C8FCE0500A496D2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 6356CA632C8FCE0500A496D2 /* FirebaseDatabase */; };
 		6356CA662C8FCE0500A496D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6356CA652C8FCE0500A496D2 /* FirebaseFirestore */; };
@@ -31,6 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6320368E2C91895600220FED /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		632036902C9189C800220FED /* RoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomListView.swift; sourceTree = "<group>"; };
+		632036922C918AE400220FED /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
+		632036942C918AFF00220FED /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6356CA6A2C8FFE8B00A496D2 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6356CA6D2C8FFFC600A496D2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6356CA6F2C900A4100A496D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -95,6 +103,10 @@
 			isa = PBXGroup;
 			children = (
 				6356CA732C90311500A496D2 /* MainTabView.swift */,
+				6320368E2C91895600220FED /* HomeView.swift */,
+				632036902C9189C800220FED /* RoomListView.swift */,
+				632036922C918AE400220FED /* CurrentUserProfileView.swift */,
+				632036942C918AFF00220FED /* SettingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -259,8 +271,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				63D9D0632C8E8B2D001960D3 /* CreateUserNameView.swift in Sources */,
+				632036912C9189C800220FED /* RoomListView.swift in Sources */,
 				63D9D0672C8E8B5E001960D3 /* CompleteSignUpView.swift in Sources */,
+				632036952C918AFF00220FED /* SettingView.swift in Sources */,
 				63D9D05C2C8E8636001960D3 /* LoginViewModel.swift in Sources */,
+				6320368F2C91895600220FED /* HomeView.swift in Sources */,
 				63D9D05F2C8E8767001960D3 /* TextFieldModifier.swift in Sources */,
 				63D9D0592C8E8517001960D3 /* LoginView.swift in Sources */,
 				6356CA6B2C8FFE8B00A496D2 /* AuthService.swift in Sources */,
@@ -272,6 +287,7 @@
 				63D9D0652C8E8B4A001960D3 /* CreatePasswordView.swift in Sources */,
 				63D9D04B2C8E8053001960D3 /* ContentView.swift in Sources */,
 				63D9D0492C8E8053001960D3 /* FlashBondApp.swift in Sources */,
+				632036932C918AE400220FED /* CurrentUserProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
