@@ -27,7 +27,7 @@ struct CreatePasswordView: View {
                 .padding(.horizontal, 24)
                 .padding(.bottom)
 
-            TextField("ユーザーネーム", text: $viewModel.username)
+            TextField("パスワード", text: $viewModel.password)
                 .textInputAutocapitalization(.none)
                 .modifier(TextFieldModifier())
 
