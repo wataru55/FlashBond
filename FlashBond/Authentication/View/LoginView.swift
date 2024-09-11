@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-
     @StateObject private var viewModel = LoginViewModel()
+
+    @State private var errorMessage: String? = nil
 
     let _width = UIScreen.main.bounds.width
 
@@ -17,14 +18,35 @@ struct LoginView: View {
         NavigationStack {
             VStack {
                 Spacer()
-
                 // アプリのロゴ
                 //TODO: ロゴ画像を追加する
-                Text("FlashBond")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                    .padding(.bottom, 50)
+                HStack (spacing: 0) {
+                    Text("Flash")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(LinearGradient(colors: [Color.black, Color.yellow], startPoint: .leading, endPoint: .trailing))
+
+                    Image(systemName: "bolt.fill")
+                        .font(.largeTitle)
+                        .foregroundStyle(.yellow)
+
+                    Text("Bond")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(LinearGradient(colors: [Color.yellow, Color.black], startPoint: .leading, endPoint: .trailing))
+
+                }
+                .frame(width: _width)
+                .padding(.bottom, 50)
+                .overlay (alignment: .bottom) {
+                    if let errorMessage = errorMessage {
+                        Text(errorMessage)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.gray)
+                            .animation(.easeInOut, value: errorMessage) // フェードイン/アウトを適用
+                    }
+                }
 
                 // テキストフィールド
                 VStack (spacing: 15) {
@@ -42,6 +64,7 @@ struct LoginView: View {
                     Text("パスワードを忘れた？")
                         .font(.footnote)
                         .fontWeight(.semibold)
+                        .foregroundStyle(.blue)
                         .padding(.top)
                 })
                 .frame(maxWidth: .infinity, alignment: .trailing)
@@ -49,6 +72,18 @@ struct LoginView: View {
                 .padding(.vertical, 5)
 
                 Button(action: {
+                    Task {
+                        do {
+                            try await viewModel.login()
+                        } catch {
+                            errorMessage = "ログインに失敗しました もう一度お試しください"
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                withAnimation {
+                                    errorMessage = nil
+                                }
+                            }
+                        }
+                    }
 
                 }, label: {
                     Text("ログイン")
@@ -72,6 +107,7 @@ struct LoginView: View {
                     Text("アカウントの新規作成")
                         .font(.footnote)
                         .fontWeight(.semibold)
+                        .foregroundStyle(.blue)
                 }
                 .padding(.vertical)
             } // VStack
