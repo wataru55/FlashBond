@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct MainTabView: View {
+    init() {
+        let appearance: UITabBarAppearance = UITabBarAppearance()
+        appearance.shadowColor = .clear
+        appearance.backgroundColor = UIColor(Color.white.opacity(0.1))
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().standardAppearance = appearance
+    }
     var body: some View {
         TabView {
             HomeView()
@@ -31,6 +38,7 @@ struct MainTabView: View {
                     Text("Setting")
                 }
         }
+        .accentColor(.black)
     }
 }
 
