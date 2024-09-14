@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import Firebase
+import FirebaseAuth
 import FirebaseStorage
 
 class EditProfileViewModel: ObservableObject {
@@ -21,8 +22,12 @@ class EditProfileViewModel: ObservableObject {
             }
         }
     }
-    /// ユーザーが選択した画像を表示するためのプロパティ
+    /// ユーザーが選択した画像をビューに表示するためのプロパティ
     @Published var displayImage: Image?
+    // ユーザーにステータスメッセージを表示するためのプロパティ
+    @Published var statusMessage: String?
+    /// バイナリデータから画像データであるUIImageに変換された値を格納するためのプロパティ
+    private var uiImage: UIImage?
 
     @MainActor
     func loadImage(fromItem item: PhotosPickerItem?) async {
@@ -32,8 +37,36 @@ class EditProfileViewModel: ObservableObject {
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }
         // バイナリデータをUIImageに変換
         guard let uiImage = UIImage(data: data) else { return }
-        //self.uiImage = uiImage
+        self.uiImage = uiImage
         self.displayImage = Image(uiImage: uiImage)
     }
+    
+    @MainActor
+    func saveProfileToFirestore() async throws {
+        // ユーザーIDを取得
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        // 画像データを取得
+        guard let uiImage = uiImage else { return }
+        // ユーザードキュメンントの参照先を定義
+        let userRef = Firestore.firestore().collection("users").document(uid)
 
+        // 画像URLを作成
+        guard let imageURL = try await ImageUpLoader.uploadImageToStorage(image: uiImage) else { return }
+        // Firestoreに保存するデータを定義
+        let data: [String: String] = [
+            "username": username,
+            "bio": bio,
+            "imageURL": imageURL
+        ]
+
+        do {
+            // Firestoreにデータを保存
+            try await userRef.updateData(data)
+            self.statusMessage = "プロフィールが更新されました"
+        } catch {
+            self.statusMessage = "更新に失敗しました．もう一度お試しください．"
+        }
+
+
+    }
 }
