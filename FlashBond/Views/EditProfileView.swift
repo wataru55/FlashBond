@@ -13,7 +13,7 @@ struct EditProfileView: View {
 
     @State private var isPickerPresented = false
     @State private var isEditing = false
-    @State var textfield: String = ""
+    @State private var statusMessage: String? = nil
 
     let _width =  UIScreen.main.bounds.width
 
@@ -121,7 +121,14 @@ struct EditProfileView: View {
                     }
 
                     Button {
-
+                        Task {
+                            do {
+                                try await viewModel.saveProfileToFirestore()
+                                showMessageTemporarily()
+                            } catch {
+                                showMessageTemporarily()に
+                            }
+                        }
                     } label: {
                         Text("保存")
                             .font(.subheadline)
@@ -131,8 +138,30 @@ struct EditProfileView: View {
                 }
             }
         }
-    }
-}
+        .overlay {
+            if let statusMessage = viewModel.statusMessage {
+                VStack {
+                    Text(statusMessage)
+                        .font(.subheadline)
+                        .foregroundStyle(.black)
+                        .padding(10)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 10)
+                }
+            }
+        }
+    }// body
+    // 2秒後にメッセージを消す関数
+        private func showMessageTemporarily() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                withAnimation {
+                    viewModel.statusMessage = nil // 2秒後にメッセージを消す
+                }
+            }
+        }
+}// EditProfileView
 
 #Preview {
     EditProfileView()
