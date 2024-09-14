@@ -11,6 +11,10 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
+enum ProfileError: Error {
+    case emptyUsername
+}
+
 class EditProfileViewModel: ObservableObject {
     @Published var username: String = ""
     @Published var bio: String = ""
@@ -40,18 +44,30 @@ class EditProfileViewModel: ObservableObject {
         self.uiImage = uiImage
         self.displayImage = Image(uiImage: uiImage)
     }
-    
+
     @MainActor
     func saveProfileToFirestore() async throws {
+        // usernameが空だった場合、エラーをスロー
+        guard !self.username.isEmpty else {
+            throw ProfileError.emptyUsername
+        }
         // ユーザーIDを取得
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        // 画像データを取得
-        guard let uiImage = uiImage else { return }
         // ユーザードキュメンントの参照先を定義
         let userRef = Firestore.firestore().collection("users").document(uid)
 
-        // 画像URLを作成
-        guard let imageURL = try await ImageUpLoader.uploadImageToStorage(image: uiImage) else { return }
+        // 画像URLを作成（画像が選択されていない場合は空文字列を使用）
+        let imageURL: String
+        if let uiImage = uiImage {
+            if let url = try await ImageUpLoader.uploadImageToStorage(image: uiImage) {
+                imageURL = url
+            } else {
+                imageURL = "" // 画像がアップロードされなかった場合、空文字列を設定
+            }
+        } else {
+            imageURL = "" // 画像が選択されていない場合も空文字列を設定
+        }
+
         // Firestoreに保存するデータを定義
         let data: [String: String] = [
             "username": username,
@@ -62,11 +78,10 @@ class EditProfileViewModel: ObservableObject {
         do {
             // Firestoreにデータを保存
             try await userRef.updateData(data)
-            self.statusMessage = "プロフィールが更新されました"
+            print("データがFirestoreに保存されました")
         } catch {
-            self.statusMessage = "更新に失敗しました．もう一度お試しください．"
+            print("Firestoreへのデータ保存中にエラーが発生しました: \(error)")
+            throw error
         }
-
-
     }
 }
