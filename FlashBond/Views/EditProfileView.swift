@@ -126,7 +126,7 @@ struct EditProfileView: View {
                                 try await viewModel.saveProfileToFirestore()
                                 showMessageTemporarily()
                             } catch {
-                                showMessageTemporarily()に
+                                showMessageTemporarily()
                             }
                         }
                     } label: {
