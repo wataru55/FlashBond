@@ -124,8 +124,13 @@ struct EditProfileView: View {
                         Task {
                             do {
                                 try await viewModel.saveProfileToFirestore()
+                                viewModel.statusMessage = "プロフィールが更新されました"
+                                showMessageTemporarily()
+                            } catch ProfileError.emptyUsername {
+                                viewModel.statusMessage = "ユーザーネームを入力してください"
                                 showMessageTemporarily()
                             } catch {
+                                viewModel.statusMessage = "更新に失敗しました．もう一度お試しください．"
                                 showMessageTemporarily()
                             }
                         }
