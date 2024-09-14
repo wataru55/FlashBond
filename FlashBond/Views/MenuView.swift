@@ -29,22 +29,20 @@ struct MenuView: View {
                     .cornerRadius(20.0)
 
                 VStack{
-                    // 設定ボタン
-                    Button(action: {
-
+                    // マイページ編集ボタン
+                    NavigationLink(destination: {
+                        EditProfileView()
                     }, label: {
                         HStack {
-                            Image(systemName: "gear")
-                                .resizable()
-                                .frame(width: 30, height: 30)
+                            Image(systemName: "pencil")
+                                .font(.title)
                                 .foregroundStyle(.white)
 
-                            Text("設定")
+                            Text("編集")
                                 .font(.subheadline)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.white)
-
-
+                                .padding(.trailing, 20)
                         }
                         .frame(width: 200, height: 44)
                         .background(.gray)
@@ -53,20 +51,20 @@ struct MenuView: View {
                     .padding(.top, 50)
                     .shadow(color: .black.opacity(0.7), radius: 2, x: 0, y: 3)
 
-                    // マイページボタン
+                    // 設定ボタン
                     Button(action: {
 
                     }, label: {
                         HStack {
-                            Image(systemName: "person.circle")
-                                .resizable()
-                                .frame(width: 30, height: 30)
+                            Image(systemName: "gear")
+                                .font(.title)
                                 .foregroundStyle(.white)
 
-                            Text("編集")
+                            Text("設定")
                                 .font(.subheadline)
                                 .fontWeight(.bold)
                                 .foregroundStyle(.white)
+                                .padding(.trailing, 20)
 
 
                         }
