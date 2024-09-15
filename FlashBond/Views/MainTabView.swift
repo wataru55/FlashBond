@@ -8,12 +8,37 @@
 import SwiftUI
 
 struct MainTabView: View {
+    init() {
+        let appearance: UITabBarAppearance = UITabBarAppearance()
+        appearance.shadowColor = .clear
+        appearance.backgroundColor = UIColor(Color.white.opacity(0.1))
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().standardAppearance = appearance
+    }
     var body: some View {
-        Button(action: {
-            AuthService.shared.signout()
-        }, label: {
-            Text("ログアウト")
-        })
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+            RoomListView()
+                .tabItem {
+                    Image(systemName: "ellipsis.bubble")
+                    Text("Rooms")
+                }
+            CurrentUserProfileView()
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("MyProfile")
+                }
+            SettingView()
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Setting")
+                }
+        }
+        .accentColor(.black)
     }
 }
 
