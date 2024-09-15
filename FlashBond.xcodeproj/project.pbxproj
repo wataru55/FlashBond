@@ -24,6 +24,7 @@
 		6356CA702C900A4100A496D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6356CA6F2C900A4100A496D2 /* GoogleService-Info.plist */; };
 		6356CA742C90311500A496D2 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356CA732C90311500A496D2 /* MainTabView.swift */; };
 		6356CA762C90333200A496D2 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356CA752C90333200A496D2 /* ContentViewModel.swift */; };
+		63BED2DB2C96643300CDBAEB /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BED2DA2C96643300CDBAEB /* UserService.swift */; };
 		63D9D0492C8E8053001960D3 /* FlashBondApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D0482C8E8053001960D3 /* FlashBondApp.swift */; };
 		63D9D04B2C8E8053001960D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9D04A2C8E8053001960D3 /* ContentView.swift */; };
 		63D9D04D2C8E8055001960D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D9D04C2C8E8055001960D3 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		6356CA6F2C900A4100A496D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		6356CA732C90311500A496D2 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		6356CA752C90333200A496D2 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		63BED2DA2C96643300CDBAEB /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		63D9D0452C8E8053001960D3 /* FlashBond.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashBond.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D9D0482C8E8053001960D3 /* FlashBondApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashBondApp.swift; sourceTree = "<group>"; };
 		63D9D04A2C8E8053001960D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				6356CA6A2C8FFE8B00A496D2 /* AuthService.swift */,
 				6320369E2C95392D00220FED /* ImageUpLoader.swift */,
+				63BED2DA2C96643300CDBAEB /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				632036952C918AFF00220FED /* SettingView.swift in Sources */,
 				63D9D05C2C8E8636001960D3 /* LoginViewModel.swift in Sources */,
 				6320368F2C91895600220FED /* HomeView.swift in Sources */,
+				63BED2DB2C96643300CDBAEB /* UserService.swift in Sources */,
 				63D9D05F2C8E8767001960D3 /* TextFieldModifier.swift in Sources */,
 				63D9D0592C8E8517001960D3 /* LoginView.swift in Sources */,
 				6356CA6B2C8FFE8B00A496D2 /* AuthService.swift in Sources */,
