@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     @State private var isMenuOpen = false
+    var currentUser: User
 
     var body: some View {
         NavigationStack {
@@ -59,5 +60,5 @@ struct CurrentUserProfileView: View {
 }
 
 #Preview {
-    CurrentUserProfileView()
+    CurrentUserProfileView(currentUser: User.MOCK_USERS[0])
 }
