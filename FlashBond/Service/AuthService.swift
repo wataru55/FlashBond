@@ -56,10 +56,20 @@ class AuthService {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             // ログインしたユーザー情報をuserSessionに格納
             self.userSession = result.user
+            // ログインしたユーザーの情報をFirestore Databaseから取得
+            try await loadUserData()
         } catch {
             print("DEBUG: Failed to login with error \(error.localizedDescription)")
             throw error  // エラーを再スロー
         }
+    }
+
+    @MainActor
+    func loadUserData() async throws {
+        //currentUserのユーザidを取得し，currentUidに格納
+        guard let currentUid = userSession?.uid else { return }
+        //currentUidを使用してFirestoreDatabaseからユーザーの情報を取得
+        self.currentUser = try await UserService.fetchUserData(uid: currentUid)
     }
 
     // ログアウトする関数
