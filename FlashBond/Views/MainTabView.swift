@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MainTabView: View {
-    init() {
+    let currentUser: User
+    init(currentUser: User) {
+        self.currentUser = currentUser
         let appearance: UITabBarAppearance = UITabBarAppearance()
         appearance.shadowColor = .clear
         appearance.backgroundColor = UIColor(Color.white.opacity(0.1))
@@ -27,7 +29,7 @@ struct MainTabView: View {
                     Image(systemName: "ellipsis.bubble")
                     Text("Rooms")
                 }
-            CurrentUserProfileView()
+            CurrentUserProfileView(currentUser: self.currentUser)
                 .tabItem {
                     Image(systemName: "person")
                     Text("MyProfile")
@@ -43,5 +45,5 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView()
+    MainTabView(currentUser: User.MOCK_USERS[0])
 }

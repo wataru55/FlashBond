@@ -9,18 +9,36 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     @State private var isMenuOpen = false
+    var currentUser: User
 
     var body: some View {
         NavigationStack {
             ZStack {
                 // backgroundimage
-                // TODO: 画像をデータベースから取得する
-                Image("ironman1")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width)
-                    .frame(maxHeight: .infinity)
-                    .ignoresSafeArea(.all)
+                Group {
+                    if let url = currentUser.imageURL, !url.isEmpty {
+                        AsyncImage(url: URL(string: url)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: UIScreen.main.bounds.width)
+                                .frame(maxHeight: .infinity)
+                                .ignoresSafeArea(.all)
+                        } placeholder: {
+                            // ローディング中やエラー時に表示されるプレースホルダー
+                            ProgressView()
+                        }
+                    } else {
+                        Image(systemName: "photo")
+                            .font(.largeTitle)
+                            .frame(width: UIScreen.main.bounds.width)
+                            .frame(maxHeight: .infinity)
+                            .ignoresSafeArea(.all)
+                            .background(
+                                Color.gray.opacity(0.3)
+                            )
+                    }
+                }
 
                 //MARK: - MenuArea
                 MenuView(isOpen: $isMenuOpen)
@@ -41,16 +59,16 @@ struct CurrentUserProfileView: View {
             }
             .overlay (alignment: .bottomLeading){
                 VStack (alignment: .leading) {
-                    // TODO: ユーザーネームをデータベースから取得する
-                    Text("Tony Stark")
+                    Text(currentUser.username)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
-                    // TODO: 詳細文をデータベースから取得する
-                    Text("bio")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                    if let bio = currentUser.bio {
+                        Text(bio)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                    }
                 }
                 .offset(x: 30, y: -100)
             }
@@ -59,5 +77,5 @@ struct CurrentUserProfileView: View {
 }
 
 #Preview {
-    CurrentUserProfileView()
+    CurrentUserProfileView(currentUser: User.MOCK_USERS[0])
 }
