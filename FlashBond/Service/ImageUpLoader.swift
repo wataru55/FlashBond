@@ -13,7 +13,7 @@ struct ImageUpLoader {
     /// 画像データをFirebase Storageに保存してそのダウンロードURLを返す関数
     static func uploadImageToStorage(image: UIImage) async throws -> String? {
         // uiImageをJPEG形式のバイナリデータに変換
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return nil }
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else { return nil }
         // ファイル名としてUUIDを生成
         let filename = NSUUID().uuidString
         // Firebase Storageの参照を作成し、保存先のパスを指定

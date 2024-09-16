@@ -13,62 +13,129 @@ struct EditProfileView: View {
 
     @State private var isPickerPresented = false
     @State private var isEditing = false
+    @State private var isShowAlert = false // アラートの表示状態を管理する変数
+    @State private var profileImageURL: String = ""
     @State private var statusMessage: String? = nil
 
     let _width =  UIScreen.main.bounds.width
+    var currentUser: User
 
     var body: some View {
         VStack(spacing: 0) {
             ScrollView(.vertical, showsIndicators: false){
-                // 画像
-                // TODO: 保存した画像を表示する
-                if let displayImage = viewModel.displayImage {
-                    displayImage
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: _width - 10, height: UIScreen.main.bounds.height / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .clipped()
-                        .onTapGesture {
-                            if isEditing {
-                                isPickerPresented.toggle()
-                            }
-                        }
-                } else {
-                    Button {
-                        isPickerPresented.toggle()
-                    } label: {
-                        RoundedRectangle(cornerRadius: 12).stroke(style: .init(lineWidth: 2, dash: [2, 4]))
-                            .foregroundStyle(.black)
-                            .padding(.horizontal, 5)
-                            .frame(width: _width, height: UIScreen.main.bounds.height / 2)
-                            .overlay {
-                                VStack {
-                                    Image(systemName: "photo")
-                                        .font(.title)
-                                        .foregroundStyle(.black)
-                                        .padding(.bottom, 10)
-
-                                    Text("画像を選択")
-                                        .font(.subheadline)
-                                        .foregroundStyle(.gray)
+                //MARK: - imageArea
+                Group {
+                    // photosPickerで選択された画像がある場合
+                    if let displayImage = viewModel.displayImage {
+                        displayImage
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: _width - 10, height: UIScreen.main.bounds.height / 2.5)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .clipped()
+                            .overlay(alignment: .bottomTrailing) {
+                                Button {
+                                    isShowAlert.toggle()
+                                } label: {
+                                    Image(systemName: "xmark.square")
+                                        .font(.title2)
+                                        .foregroundStyle(.white)
+                                        .padding(5)
+                                }
+                                .allowsHitTesting(isEditing)
+                                .alert("本当に削除しますか", isPresented: $isShowAlert) {
+                                    Button("はい") {
+                                        viewModel.deleteProfileImage()
+                                    }
+                                    Button("いいえ") {
+                                        isShowAlert.toggle()
+                                    }
                                 }
                             }
+                            .onTapGesture {
+                                if isEditing {
+                                    isPickerPresented.toggle()
+                                }
+                            }
+                    } else if !profileImageURL.isEmpty {
+                        // データベースに画像が保存されている場合
+                        AsyncImage(url: URL(string: profileImageURL)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: _width - 10, height: UIScreen.main.bounds.height / 2.5)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .clipped()
+                                .overlay(alignment: .bottomTrailing) {
+                                    Button {
+                                        isShowAlert.toggle()
+                                    } label: {
+                                        Image(systemName: "xmark.square")
+                                            .font(.title2)
+                                            .foregroundStyle(.white)
+                                            .padding(5)
+                                    }
+                                    .allowsHitTesting(isEditing)
+                                    .alert("本当に削除しますか", isPresented: $isShowAlert) {
+                                        Button("はい") {
+                                            viewModel.deleteProfileImage()
+                                            profileImageURL = ""
+                                        }
+                                        Button("いいえ") {
+                                            isShowAlert.toggle()
+                                        }
+                                    }
+                                }
+                                .onTapGesture {
+                                    if isEditing {
+                                        isPickerPresented.toggle()
+                                    }
+                                }
+                        } placeholder: {
+                            ProgressView()
+                        }
+
+                    } else {
+                        // データベースに画像が保存されていない場合
+                        Button {
+                            isPickerPresented.toggle()
+                        } label: {
+                            RoundedRectangle(cornerRadius: 12).stroke(style: .init(lineWidth: 2, dash: [2, 4]))
+                                .foregroundStyle(.black)
+                                .padding(.horizontal, 5)
+                                .frame(width: _width, height: UIScreen.main.bounds.height / 2.5)
+                                .overlay {
+                                    VStack {
+                                        Image(systemName: "photo")
+                                            .font(.title)
+                                            .foregroundStyle(.black)
+                                            .padding(.bottom, 10)
+
+                                        Text("画像を選択")
+                                            .font(.subheadline)
+                                            .foregroundStyle(.gray)
+                                    }
+                                }
+                        }
+                        .padding(.bottom, 10)
+                        .allowsHitTesting(isEditing)
                     }
-                    .padding(.bottom, 10)
-                }
+                }// Group
 
                 Divider()
                     .padding(.bottom, 10)
 
+                //MARK: - usernameArea
                 // ユーザーネーム
-                // TODO: ユーザーネームをデータベースから取得する
                 Section {
                     TextField("ユーザーネーム", text: $viewModel.username)
                         .frame(width: _width)
                         .modifier(TextFieldModifier())
                         .allowsHitTesting(isEditing)
                         .padding(.leading, 10)
+                        .onAppear {
+                            viewModel.username = currentUser.username
+                        }
 
                 } header: {
                     Text("ユーザーネーム")
@@ -78,8 +145,8 @@ struct EditProfileView: View {
                         .padding(.leading, 10)
                 }
 
+                //MARK: - bioArea
                 // ユーザーについての詳細文
-                // TODO: 詳細文をデータベースから取得する
                 Section {
                     TextField("詳細文", text: $viewModel.bio, axis: .vertical)
                         .frame(width: _width, height: 150)
@@ -87,6 +154,9 @@ struct EditProfileView: View {
                         .lineLimit(0...10)
                         .allowsHitTesting(isEditing)
                         .padding(.leading, 10)
+                        .onAppear {
+                            viewModel.bio = currentUser.bio ?? ""
+                        }
 
                 } header: {
                     Text("詳細文")
@@ -105,7 +175,7 @@ struct EditProfileView: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark")
+                    Image(systemName: "chevron.left")
                         .font(.footnote)
                         .foregroundStyle(.black)
                 }
@@ -157,17 +227,20 @@ struct EditProfileView: View {
                 }
             }
         }
+        .onAppear {
+            profileImageURL = currentUser.imageURL ?? ""
+        }
     }// body
     // 2秒後にメッセージを消す関数
-        private func showMessageTemporarily() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                withAnimation {
-                    viewModel.statusMessage = nil // 2秒後にメッセージを消す
-                }
+    private func showMessageTemporarily() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            withAnimation {
+                viewModel.statusMessage = nil // 2秒後にメッセージを消す
             }
         }
+    }
 }// EditProfileView
 
 #Preview {
-    EditProfileView()
+    EditProfileView(currentUser: User.MOCK_USERS[0])
 }
