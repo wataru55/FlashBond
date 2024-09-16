@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CurrentUserProfileView: View {
     @State private var isMenuOpen = false
-    var currentUser: User
+    let currentUser: User
 
     var body: some View {
         NavigationStack {
@@ -41,7 +41,7 @@ struct CurrentUserProfileView: View {
                 }
 
                 //MARK: - MenuArea
-                MenuView(isOpen: $isMenuOpen)
+                MenuView(isOpen: $isMenuOpen, currentUser: currentUser)
             }// ZStack
             .frame(width: UIScreen.main.bounds.width)
             .overlay (alignment: .topTrailing){

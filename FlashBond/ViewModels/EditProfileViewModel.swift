@@ -84,4 +84,11 @@ class EditProfileViewModel: ObservableObject {
             throw error
         }
     }
+
+    @MainActor
+    func deleteProfileImage() {
+        self.displayImage = nil
+        self.selectedImage = nil
+        self.uiImage = nil
+    }
 }
