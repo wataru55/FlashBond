@@ -10,6 +10,8 @@ import SwiftUI
 struct MenuView: View {
     /// メニュー開閉
     @Binding var isOpen: Bool
+    let currentUser: User
+    
     var body: some View {
         ZStack {
             // menuViewが出てきたときに背景を暗くするため
@@ -31,7 +33,7 @@ struct MenuView: View {
                 VStack{
                     // マイページ編集ボタン
                     NavigationLink(destination: {
-                        EditProfileView()
+                        EditProfileView(currentUser: currentUser)
                     }, label: {
                         HStack {
                             Image(systemName: "pencil")
@@ -104,5 +106,5 @@ struct MenuView: View {
 }
 
 #Preview {
-    MenuView(isOpen: .constant(true))
+    MenuView(isOpen: .constant(true), currentUser: User.MOCK_USERS[0])
 }
