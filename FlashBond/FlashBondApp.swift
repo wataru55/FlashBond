@@ -40,6 +40,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct FlashBondApp: App {
     // AppDelegateの登録
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
