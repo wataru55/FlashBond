@@ -7,10 +7,30 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseAppCheck
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+
+        // プロバイダファクトリの宣言
+        let providerFactory: AppCheckProviderFactory
+
+        // ビルド設定に応じてプロバイダを切り替え
+        #if DEBUG
+        providerFactory = AppCheckDebugProviderFactory()
+        #else
+        if #available(iOS 14.0, *) {
+            providerFactory = AppAttestProviderFactory()
+        } else {
+            providerFactory = DeviceCheckProviderFactory()
+        }
+        #endif
+
+        // App Checkのプロバイダを設定
+        AppCheck.setAppCheckProviderFactory(providerFactory)
+
+        // Firebaseの初期化
         FirebaseApp.configure()
 
         return true
@@ -19,7 +39,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct FlashBondApp: App {
-    // register app delegate for Firebase setup
+    // AppDelegateの登録
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
@@ -28,3 +48,6 @@ struct FlashBondApp: App {
         }
     }
 }
+
+
+
